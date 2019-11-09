@@ -1,28 +1,47 @@
 package com.walmartlabs.moviesreloaded;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
-import com.ern.api.impl.navigation.ElectrodeBaseActivity;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
 
-// This is the main activity that gets launched upon app start
-// It just launches the activity containing the miniapp
-// Feel free to modify it at your convenience.
+import com.walmartlabs.moviesreloaded.demo.bottomsheet.modal.ModalBottomSheetActivity;
+import com.walmartlabs.moviesreloaded.demo.bottomsheet.persistent.PersistentBottomSheetActivity;
+import com.walmartlabs.moviesreloaded.demo.customview.CustomActivity;
+import com.walmartlabs.moviesreloaded.demo.navmenuhandler.NavMenuActivity;
 
-public class MainActivity extends ElectrodeBaseActivity {
+public class LauncherActivity extends AppCompatActivity {
 
-    @NonNull
     @Override
-    public String getRootComponentName() {
-        return "MoviesReloaded";
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_launcher);
+        setTitle(this.getString(R.string.launcher_title));
     }
 
-    @Override
-    protected int mainLayout() {
-        return R.layout.activity_main;
-    }
 
-    @Override
-    public int getFragmentContainerId() {
-        return R.id.miniapp_container;
+    public void handleButtonClick(View view) {
+        Class<? extends Activity> clazz;
+        switch (view.getId()) {
+            case R.id.id_button_custom:
+                clazz = CustomActivity.class;
+                break;
+            case R.id.id_button_navbar:
+                clazz = NavMenuActivity.class;
+                break;
+            case R.id.id_button_bottomsheet:
+                clazz = ModalBottomSheetActivity.class;
+                break;
+            case R.id.id_button_persistent_bottomsheet:
+                clazz = PersistentBottomSheetActivity.class;
+                break;
+            default:
+                clazz = MainActivity.class;
+                break;
+        }
+
+        this.startActivity(new Intent(this, clazz));
     }
 }

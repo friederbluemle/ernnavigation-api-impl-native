@@ -13,13 +13,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity">
+        <activity android:name=".LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".MainActivity" />
+        <activity android:name=".demo.customview.CustomActivity" />
+        <activity android:name=".demo.navmenuhandler.NavMenuActivity" />
+        <activity android:name=".demo.bottomsheet.modal.ModalBottomSheetActivity" android:theme="@style/TransparentTheme"/>
+        <activity android:name=".demo.bottomsheet.persistent.PersistentBottomSheetActivity" android:theme="@style/TransparentTheme"/>
     </application>
 
 </manifest>
