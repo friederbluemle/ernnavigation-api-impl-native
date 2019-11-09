@@ -16,10 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.ern.api.impl.core.ElectrodeBaseActivityDelegate;
-import com.ern.api.impl.core.ElectrodeBaseFragmentDelegate;
-import com.ern.api.impl.core.ElectrodeReactFragmentActivityDelegate;
 import com.ern.api.impl.core.LaunchConfig;
-import com.ernnavigationApi.ern.model.NavigationBar;
 import com.facebook.react.ReactRootView;
 
 import org.json.JSONObject;
@@ -39,13 +36,12 @@ public abstract class ElectrodeBaseActivity extends AppCompatActivity implements
     protected abstract int mainLayout();
 
     /**
-     * React native component name that will be rendered when the activity is first launched.
+     * React Native component name that will be rendered when the activity is first launched.
      *
      * @return String
      */
     @NonNull
     protected abstract String getRootComponentName();
-
 
     /**
      * Id for the fragment container.

@@ -4,69 +4,68 @@ import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 
 /**
- * Configuration used by {@link ElectrodeBaseFragmentDelegate} to host a react native view component.
- * This config can be used by a fragment to add custom Layouts, ReactNative view container view groups, tool bar, etc.
+ * Configuration used by {@link ElectrodeBaseFragmentDelegate} to host a React Native view component.
+ * This config can be used by a fragment to add custom Layouts, React Native view container view groups, toolbar, etc.
  */
 public class ElectrodeFragmentConfig {
-
     public static final int NONE = 0;
 
-    /***
+    /**
      * The layout xml that will be used by the fragment to create the view.
-     * This is the layout where you can place your toolbar(optional) and an empty view group to inflate the react native view.
+     * This is the layout where you can place your toolbar(optional) and an empty view group to inflate the React Native view.
      */
     @LayoutRes
-    int fragmentLayoutId;
+    int mFragmentLayoutId;
 
     /**
      * The container ViewGroup id to which a react native view can be added.
      */
     @IdRes
-    int reactViewContainerId;
+    int mReactViewContainerId;
 
     /**
      * id of the toolbar if tool bar is part of the fragment layout, return NONE otherwise.
      */
     @IdRes
-    int toolBarId;
+    int mToolbarId;
 
     public ElectrodeFragmentConfig() {
-        this.fragmentLayoutId = NONE;
-        this.reactViewContainerId = NONE;
-        this.toolBarId = NONE;
+        mFragmentLayoutId = NONE;
+        mReactViewContainerId = NONE;
+        mToolbarId = NONE;
     }
 
     public int getFragmentLayoutId() {
-        return fragmentLayoutId;
+        return mFragmentLayoutId;
     }
 
     /***
      * The layout xml that will be used by the fragment to create the view.
-     * This is the layout where you can place your toolbar(optional) and an empty view group to inflate the react native view.
+     * This is the layout where you can place your toolbar(optional) and an empty view group to inflate the React Native view.
      */
     public void setFragmentLayoutId(int fragmentLayoutId) {
-        this.fragmentLayoutId = fragmentLayoutId;
+        mFragmentLayoutId = fragmentLayoutId;
     }
 
     public int getReactViewContainerId() {
-        return reactViewContainerId;
+        return mReactViewContainerId;
     }
 
     /**
-     * The container ViewGroup id to which a react native view can be added.
+     * The container ViewGroup id to which a React Native view can be added.
      */
     public void setReactViewContainerId(int reactViewContainerId) {
-        this.reactViewContainerId = reactViewContainerId;
+        mReactViewContainerId = reactViewContainerId;
     }
 
-    public int getToolBarId() {
-        return toolBarId;
+    public int getToolbarId() {
+        return mToolbarId;
     }
 
     /**
      * Provide the id of the toolbar if tool bar is part of the fragment layout, return NONE otherwise.
      */
-    public void setToolBarId(int toolBarId) {
-        this.toolBarId = toolBarId;
+    public void setToolbarId(int toolbarId) {
+        mToolbarId = toolbarId;
     }
 }

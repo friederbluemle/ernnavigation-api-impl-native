@@ -10,9 +10,9 @@ import com.ern.api.impl.core.ElectrodeBaseFragment;
 import com.ern.api.impl.core.LaunchConfig;
 
 /**
- * Fragment with inbuilt navigation for react native components.
+ * Fragment with inbuilt navigation for React Native components.
  * <p>
- * Use this fragment to host a react native component that uses ern-navigation library to navigate between pages.
+ * Use this fragment to host a React Native component that uses ern-navigation library to navigate between pages.
  */
 public class MiniAppNavigationFragment extends ElectrodeBaseFragment<ElectrodeNavigationFragmentDelegate> implements ElectrodeNavigationFragmentDelegate.FragmentNavigator, ElectrodeNavigationFragmentDelegate.OnUpdateNextPageLaunchConfigListener {
     @NonNull
@@ -23,12 +23,12 @@ public class MiniAppNavigationFragment extends ElectrodeBaseFragment<ElectrodeNa
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        electrodeReactFragmentDelegate.onCreateOptionsMenu(menu, inflater);
+        mElectrodeReactFragmentDelegate.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return electrodeReactFragmentDelegate.onOptionsItemSelected(item);
+        return mElectrodeReactFragmentDelegate.onOptionsItemSelected(item);
     }
 
     @Override
@@ -38,6 +38,5 @@ public class MiniAppNavigationFragment extends ElectrodeBaseFragment<ElectrodeNa
 
     @Override
     public void updateNextPageLaunchConfig(@NonNull String nextPageName, @NonNull LaunchConfig defaultLaunchConfig) {
-        //Override if needed.
     }
 }

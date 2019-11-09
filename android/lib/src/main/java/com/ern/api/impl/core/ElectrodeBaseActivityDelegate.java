@@ -44,19 +44,18 @@ public class ElectrodeBaseActivityDelegate extends ElectrodeReactActivityDelegat
         }
     }
 
-    //Not putting this under the OnLifecycleEvent sine we need the savedInstanceState
+    //Not putting this under the OnLifecycleEvent since we need the savedInstanceState
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
-            Logger.d(TAG, "Starting react native root component(%s). Loading the react view inside a fragment.", mRootComponentName);
+            Logger.d(TAG, "Starting React Native root component (%s). Loading the react view inside a fragment.", mRootComponentName);
             startMiniAppFragment(mRootComponentName, mDefaultLaunchConfig);
         }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     public void onStart() {
-        //PlaceHolder
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -73,7 +72,6 @@ public class ElectrodeBaseActivityDelegate extends ElectrodeReactActivityDelegat
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     public void onStop() {
-        //PlaceHolder
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
@@ -108,7 +106,7 @@ public class ElectrodeBaseActivityDelegate extends ElectrodeReactActivityDelegat
     public void startMiniAppFragment(@NonNull String componentName, @NonNull LaunchConfig launchConfig) {
         Logger.d(TAG, "entering startMiniAppFragment for component: %s", componentName);
         Fragment fragment;
-        Class<? extends Fragment> fClazz = launchConfig.fragmentClass != null ? launchConfig.fragmentClass : mDefaultLaunchConfig.fragmentClass;
+        Class<? extends Fragment> fClazz = launchConfig.mFragmentClass != null ? launchConfig.mFragmentClass : mDefaultLaunchConfig.mFragmentClass;
         try {
             if (fClazz == null) {
                 throw new RuntimeException("Missing fragment class in both launchConfig and defaultLaunchConfig. This needs to be set in one of these configurations.");
@@ -118,9 +116,9 @@ public class ElectrodeBaseActivityDelegate extends ElectrodeReactActivityDelegat
             throw new RuntimeException("Failed to create " + fClazz + " fragment", e);
         }
 
-        Bundle props = launchConfig.initialProps != null ? launchConfig.initialProps : new Bundle();
+        Bundle props = launchConfig.mInitialProps != null ? launchConfig.mInitialProps : new Bundle();
         props.putString(ActivityDelegateConstants.KEY_MINI_APP_COMPONENT_NAME, componentName);
-        props.putBoolean(ActivityDelegateConstants.KEY_MINI_APP_FRAGMENT_SHOW_UP_ENABLED, shouldShowUpEnabled(launchConfig.forceUpEnabled));
+        props.putBoolean(ActivityDelegateConstants.KEY_MINI_APP_FRAGMENT_SHOW_UP_ENABLED, shouldShowUpEnabled(launchConfig.mForceUpEnabled));
         fragment.setArguments(props);
 
         Logger.d(TAG, "starting fragment: fragmentClass->%s, props->%s", fragment.getClass().getSimpleName(), props);
@@ -128,7 +126,7 @@ public class ElectrodeBaseActivityDelegate extends ElectrodeReactActivityDelegat
     }
 
     private void switchToFragment(@NonNull Fragment fragment, @NonNull LaunchConfig launchConfig, @Nullable String tag) {
-        if (launchConfig.isBottomSheet) {
+        if (launchConfig.mIsBottomSheet) {
             if (fragment instanceof DialogFragment) {
                 Logger.d(TAG, "Showing dialog fragment");
                 ((DialogFragment) fragment).show(getFragmentManager(launchConfig), tag);
@@ -137,12 +135,11 @@ public class ElectrodeBaseActivityDelegate extends ElectrodeReactActivityDelegat
             }
         } else {
             final FragmentManager fragmentManager = getFragmentManager(launchConfig);
-            int fragmentContainerId = (launchConfig.fragmentContainerId != LaunchConfig.NONE) ? launchConfig.fragmentContainerId : mDefaultLaunchConfig.fragmentContainerId;
-
+            int fragmentContainerId = (launchConfig.mFragmentContainerId != LaunchConfig.NONE) ? launchConfig.mFragmentContainerId : mDefaultLaunchConfig.mFragmentContainerId;
 
             final FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-            if (ADD_TO_BACKSTACK == launchConfig.addToBackStack) {
+            if (ADD_TO_BACKSTACK == launchConfig.mAddToBackStack) {
                 Logger.d(TAG, "fragment(%s) added to back stack", tag);
                 transaction.addToBackStack(tag);
             }
@@ -160,12 +157,12 @@ public class ElectrodeBaseActivityDelegate extends ElectrodeReactActivityDelegat
     }
 
     private FragmentManager getFragmentManager(@NonNull LaunchConfig launchConfig) {
-        if (launchConfig.fragmentManager != null) {
-            return launchConfig.fragmentManager;
+        if (launchConfig.mFragmentManager != null) {
+            return launchConfig.mFragmentManager;
         }
 
-        if (mDefaultLaunchConfig.fragmentManager != null) {
-            return mDefaultLaunchConfig.fragmentManager;
+        if (mDefaultLaunchConfig.mFragmentManager != null) {
+            return mDefaultLaunchConfig.mFragmentManager;
         }
 
         return mFragmentActivity.getSupportFragmentManager();

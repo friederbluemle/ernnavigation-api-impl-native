@@ -25,7 +25,6 @@ import com.ernnavigationApi.ern.model.NavigationBarButton;
 import com.walmartlabs.electrode.reactnative.bridge.helpers.Logger;
 
 public class ElectrodeNavigationFragmentDelegate<T extends ElectrodeBaseFragmentDelegate.ElectrodeActivityListener, C extends ElectrodeFragmentConfig> extends ElectrodeBaseFragmentDelegate<ElectrodeNavigationActivityListener, ElectrodeNavigationFragmentConfig> {
-
     private static final String TAG = ElectrodeNavigationFragmentDelegate.class.getSimpleName();
 
     private ReactNavigationViewModel mNavViewModel;
@@ -35,7 +34,7 @@ public class ElectrodeNavigationFragmentDelegate<T extends ElectrodeBaseFragment
     private OnUpdateNextPageLaunchConfigListener mOnUpdateNextPageLaunchConfigListener;
 
     @NonNull
-    private OnNavBarItemClickListener navBarButtonClickListener;
+    private OnNavBarItemClickListener mNavBarButtonClickListener;
 
     @Nullable
     private MenuItemDataProvider mMenuItemDataProvider;
@@ -47,7 +46,7 @@ public class ElectrodeNavigationFragmentDelegate<T extends ElectrodeBaseFragment
         @Override
         public void onChanged(@Nullable Route route) {
             if (route != null && !route.isCompleted()) {
-                Logger.d(TAG, "Delegate:%s received a new navigation route: %s", ElectrodeNavigationFragmentDelegate.this, route.getArguments());
+                Logger.d(TAG, "Delegate: %s received a new navigation route: %s", ElectrodeNavigationFragmentDelegate.this, route.getArguments());
 
                 if (!route.getArguments().containsKey(ReactNavigationViewModel.KEY_NAV_TYPE)) {
                     throw new IllegalStateException("Missing NAV_TYPE in route arguments");
@@ -74,7 +73,7 @@ public class ElectrodeNavigationFragmentDelegate<T extends ElectrodeBaseFragment
                 }
                 Logger.d(TAG, "Nav request handling completed by delegate: %s", ElectrodeNavigationFragmentDelegate.this);
             } else {
-                Logger.d(TAG, "Delegate:%s has ignored an already handled route: %s, ", ElectrodeNavigationFragmentDelegate.this, route != null ? route.getArguments() : null);
+                Logger.d(TAG, "Delegate: %s has ignored an already handled route: %s, ", ElectrodeNavigationFragmentDelegate.this, route != null ? route.getArguments() : null);
             }
         }
     };
@@ -100,7 +99,7 @@ public class ElectrodeNavigationFragmentDelegate<T extends ElectrodeBaseFragment
             mOnUpdateNextPageLaunchConfigListener = (OnUpdateNextPageLaunchConfigListener) mFragment;
         }
 
-        navBarButtonClickListener = new ElectrodeNavigationFragmentDelegate.DefaultNavBarButtonClickListener();
+        mNavBarButtonClickListener = new ElectrodeNavigationFragmentDelegate.DefaultNavBarButtonClickListener();
     }
 
     @Override
@@ -182,7 +181,7 @@ public class ElectrodeNavigationFragmentDelegate<T extends ElectrodeBaseFragment
     }
 
     private void navigate(@NonNull Route route) {
-        final String path = NavUtils.getPath(route.getArguments());
+        String path = NavUtils.getPath(route.getArguments());
         Logger.d(TAG, "navigating to: " + path);
 
         if (!TextUtils.isEmpty(path)) {
@@ -202,12 +201,11 @@ public class ElectrodeNavigationFragmentDelegate<T extends ElectrodeBaseFragment
         }
     }
 
-
     private LaunchConfig createDefaultLaunchConfig(@NonNull Route route) {
-        LaunchConfig launchConfig = new LaunchConfig();
-        launchConfig.setInitialProps(route.getArguments());
-        launchConfig.setFragmentManager(mFragmentConfig != null && mFragmentConfig.useChildFragmentManager ? mFragment.getChildFragmentManager() : null);
-        return launchConfig;
+        LaunchConfig config = new LaunchConfig();
+        config.setInitialProps(route.getArguments());
+        config.setFragmentManager(mFragmentConfig != null && mFragmentConfig.useChildFragmentManager ? mFragment.getChildFragmentManager() : null);
+        return config;
     }
 
     /**
@@ -217,8 +215,7 @@ public class ElectrodeNavigationFragmentDelegate<T extends ElectrodeBaseFragment
      * @param launchConfig {@link LaunchConfig} with default config values pre-populated for the next page fragment launch.
      *                     Update this config with new props, different fragment class names, layouts etc.
      */
-    protected void updateNextPageLaunchConfig(@NonNull final String nextPageName, @NonNull final LaunchConfig launchConfig) {
-        //Do nothing. Placeholder for child delegates to add data.
+    protected void updateNextPageLaunchConfig(@NonNull String nextPageName, @NonNull LaunchConfig launchConfig) {
     }
 
     private boolean updateNavBar(@Nullable Bundle arguments) {
@@ -235,22 +232,20 @@ public class ElectrodeNavigationFragmentDelegate<T extends ElectrodeBaseFragment
     }
 
     private class DefaultNavBarButtonClickListener implements OnNavBarItemClickListener {
-
-        private OnNavBarItemClickListener suppliedButtonClickListener;
+        private OnNavBarItemClickListener mSuppliedButtonClickListener;
 
         DefaultNavBarButtonClickListener() {
-            this.suppliedButtonClickListener = (mFragment instanceof OnNavBarItemClickListener) ? (OnNavBarItemClickListener) mFragment : null;
+            mSuppliedButtonClickListener = (mFragment instanceof OnNavBarItemClickListener) ? (OnNavBarItemClickListener) mFragment : null;
         }
 
         @Override
         public boolean onNavBarButtonClicked(@NonNull NavigationBarButton button, @NonNull MenuItem item) {
-            if (suppliedButtonClickListener == null || !suppliedButtonClickListener.onNavBarButtonClicked(button, item)) {
+            if (mSuppliedButtonClickListener == null || !mSuppliedButtonClickListener.onNavBarButtonClicked(button, item)) {
                 EnNavigationApi.events().emitOnNavButtonClick(button.getId());
             }
             return true;
         }
     }
-
 
     /**
      * Fragments can implement this interface when it needs to override a navigate call.
@@ -275,7 +270,7 @@ public class ElectrodeNavigationFragmentDelegate<T extends ElectrodeBaseFragment
          * @param nextPageName        {@link String} Next page name
          * @param defaultLaunchConfig {@link LaunchConfig} with default values for the next page launch config.
          */
-        void updateNextPageLaunchConfig(@NonNull final String nextPageName, @NonNull final LaunchConfig defaultLaunchConfig);
+        void updateNextPageLaunchConfig(@NonNull String nextPageName, @NonNull LaunchConfig defaultLaunchConfig);
     }
 
     private void updateNavBar(@NonNull NavigationBar navigationBar) {
@@ -283,7 +278,7 @@ public class ElectrodeNavigationFragmentDelegate<T extends ElectrodeBaseFragment
         updateTitle(navigationBar);
 
         if (mMenu != null && mFragment.getActivity() != null) {
-            MenuUtil.updateMenuItems(mMenu, navigationBar, navBarButtonClickListener, mMenuItemDataProvider, mFragment.getActivity());
+            MenuUtil.updateMenuItems(mMenu, navigationBar, mNavBarButtonClickListener, mMenuItemDataProvider, mFragment.getActivity());
         }
     }
 

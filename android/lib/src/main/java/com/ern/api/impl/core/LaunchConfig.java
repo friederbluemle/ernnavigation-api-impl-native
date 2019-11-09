@@ -13,7 +13,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * MiniApp launch config that defines the custom configurations that can be used while starting a new MiniAppFragment to host a react native view component.
+ * MiniApp launch config that defines the custom configurations that can be used while starting a new MiniAppFragment to host a React Native view component.
  */
 public class LaunchConfig {
     public static final int ADD_TO_BACK_STACK = 0;
@@ -31,103 +31,103 @@ public class LaunchConfig {
      * If not passed the {@link AppCompatActivity#getSupportFragmentManager()} would be used to start the new fragment.
      */
     @Nullable
-    FragmentManager fragmentManager;
+    FragmentManager mFragmentManager;
 
     /**
-     * Fragment class responsible for hosting the react native view.
+     * Fragment class responsible for hosting the React Native view.
      * <p>
      * A fragment class that can host a react view, one that has a proper implementation of {@link ElectrodeBaseFragmentDelegate}.
      */
     @Nullable
-    Class<? extends Fragment> fragmentClass;
+    Class<? extends Fragment> mFragmentClass;
 
     /**
      * ViewGroup id to which the fragment needs to be loaded in your layout xml.
      * If not passed, the default fragmentContainerId provided by the activity would be used.
      */
     @IdRes
-    int fragmentContainerId = NONE;
+    int mFragmentContainerId = NONE;
 
     /**
      * Optional props that you need to pass to a react native component as initial props.
      */
-    Bundle initialProps = null;
+    Bundle mInitialProps = null;
 
     /**
      * Indicates that you want to load the react native component inside  a bottom sheet.
      * This will make sure that the fragment will not be added to the back stack, instead it will be presented as a dialog.
      */
-    boolean isBottomSheet;
+    boolean mIsBottomSheet;
 
     /**
      * Set this to true if you want to force enable up navigation for component.
      */
-    boolean forceUpEnabled;
+    boolean mForceUpEnabled;
 
     /**
      * Set this value to manage the fragment back stack
      */
     @AddToBackStackState
-    int addToBackStack = ADD_TO_BACK_STACK;
+    int mAddToBackStack = ADD_TO_BACK_STACK;
 
     public LaunchConfig() {
     }
 
     @Nullable
     public FragmentManager getFragmentManager() {
-        return fragmentManager;
+        return mFragmentManager;
     }
 
     public void setFragmentManager(@Nullable FragmentManager fragmentManager) {
-        this.fragmentManager = fragmentManager;
+        mFragmentManager = fragmentManager;
     }
 
     @Nullable
     public Class<? extends Fragment> getFragmentClass() {
-        return fragmentClass;
+        return mFragmentClass;
     }
 
     public void setFragmentClass(@Nullable Class<? extends Fragment> fragmentClass) {
-        this.fragmentClass = fragmentClass;
+        mFragmentClass = fragmentClass;
     }
 
     public int getFragmentContainerId() {
-        return fragmentContainerId;
+        return mFragmentContainerId;
     }
 
     public void setFragmentContainerId(@IdRes int fragmentContainerId) {
-        this.fragmentContainerId = fragmentContainerId;
+        mFragmentContainerId = fragmentContainerId;
     }
 
     public Bundle getInitialProps() {
-        return initialProps;
+        return mInitialProps;
     }
 
     public void setInitialProps(@Nullable Bundle initialProps) {
-        if (this.initialProps != null && initialProps != null) {
+        if (mInitialProps != null && initialProps != null) {
             initialProps.putAll(initialProps);
         } else {
-            this.initialProps = initialProps;
+            mInitialProps = initialProps;
         }
     }
 
     public boolean isBottomSheet() {
-        return isBottomSheet;
+        return mIsBottomSheet;
     }
 
     public void setBottomSheet(boolean bottomSheet) {
-        this.isBottomSheet = bottomSheet;
+        mIsBottomSheet = bottomSheet;
     }
 
     public int getAddToBackStack() {
-        return addToBackStack;
+        return mAddToBackStack;
     }
 
     public void setAddToBackStack(int addToBackStack) {
-        this.addToBackStack = addToBackStack;
+        mAddToBackStack = addToBackStack;
     }
 
     public void setForceUpEnabled(boolean forceUpEnabled) {
-        this.forceUpEnabled = forceUpEnabled;
+        mForceUpEnabled = forceUpEnabled;
     }
 }

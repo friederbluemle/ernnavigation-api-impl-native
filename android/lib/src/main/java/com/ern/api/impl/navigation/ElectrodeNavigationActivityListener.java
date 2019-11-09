@@ -16,7 +16,7 @@ public interface ElectrodeNavigationActivityListener extends ElectrodeBaseFragme
     boolean navigate(Route route);
 
     /**
-     * Use to communicate back to activity when a react native flow is completed.
+     * Use to communicate back to activity when a React Native flow is completed.
      */
     void finishFlow(@Nullable JSONObject finalPayload);
 

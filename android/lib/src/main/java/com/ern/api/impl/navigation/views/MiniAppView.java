@@ -28,7 +28,6 @@ public class MiniAppView extends FrameLayout {
     @Nullable
     private OnSetInitialPropsListener mInitialPropsListener;
 
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public MiniAppView(@NonNull Context context) {
         this(context, null);
@@ -63,9 +62,9 @@ public class MiniAppView extends FrameLayout {
         //noinspection ConstantConditions
         mReactRootView = (ReactRootView) mReactDelegate.createReactNativeView(miniAppComponentName, initialProps);
         if (mReactRootView == null) {
-            throw new RuntimeException("Not able to create a react native view for component: " + miniAppComponentName);
+            throw new RuntimeException("Not able to create a React Native view for component: " + miniAppComponentName);
         }
-        this.addView(mReactRootView);
+        addView(mReactRootView);
         attributes.recycle();
     }
 
