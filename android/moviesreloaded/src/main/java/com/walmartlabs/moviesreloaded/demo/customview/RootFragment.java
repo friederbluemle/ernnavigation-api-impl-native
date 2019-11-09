@@ -9,7 +9,6 @@ import com.ern.api.impl.navigation.MiniAppNavigationFragment;
 import com.walmartlabs.moviesreloaded.R;
 
 public class RootFragment extends MiniAppNavigationFragment {
-
     @NonNull
     @Override
     protected ElectrodeNavigationFragmentDelegate createFragmentDelegate() {

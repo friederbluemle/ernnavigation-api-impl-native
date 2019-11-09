@@ -8,12 +8,7 @@ import com.ern.api.impl.navigation.ElectrodeBaseActivity;
 import com.ern.api.impl.navigation.MiniAppNavigationFragment;
 import com.ern.api.impl.navigation.Route;
 
-// This is the main activity that gets launched upon app start
-// It just launches the activity containing the miniapp
-// Feel free to modify it at your convenience.
-
-public class MainActivity extends ElectrodeBaseActivity {
-
+public class DefaultActivity extends ElectrodeBaseActivity {
     @NonNull
     @Override
     public String getRootComponentName() {
@@ -22,7 +17,7 @@ public class MainActivity extends ElectrodeBaseActivity {
 
     @Override
     protected int mainLayout() {
-        return R.layout.activity_main;
+        return R.layout.activity_default;
     }
 
     @Override
@@ -38,7 +33,7 @@ public class MainActivity extends ElectrodeBaseActivity {
 
     @Override
     public boolean navigate(Route route) {
-        if(route == null) {
+        if (route == null) {
             //Start a new activity
             return true;
         }
@@ -47,7 +42,7 @@ public class MainActivity extends ElectrodeBaseActivity {
 
     @Override
     protected LaunchConfig createDefaultLaunchConfig() {
-        LaunchConfig config =  super.createDefaultLaunchConfig();
+        LaunchConfig config = super.createDefaultLaunchConfig();
         config.setForceUpEnabled(true);
         return config;
     }

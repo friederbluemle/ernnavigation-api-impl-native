@@ -12,7 +12,7 @@ import org.json.JSONObject;
 public class PersistentBottomSheetActivity extends ElectrodeBaseActivity {
     @Override
     protected int mainLayout() {
-        return R.layout.activity_main;
+        return R.layout.activity_default;
     }
 
     @NonNull

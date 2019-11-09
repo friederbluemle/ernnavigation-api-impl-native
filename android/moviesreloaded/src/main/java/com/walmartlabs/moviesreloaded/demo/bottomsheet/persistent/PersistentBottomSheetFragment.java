@@ -15,7 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.walmartlabs.moviesreloaded.R;
 
 public class PersistentBottomSheetFragment extends MiniAppNavigationFragment {
-    private BottomSheetBehavior bottomSheetBehavior;
+    private BottomSheetBehavior mBottomSheetBehavior;
 
     @NonNull
     @Override
@@ -29,12 +29,10 @@ public class PersistentBottomSheetFragment extends MiniAppNavigationFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-
-        if (view != null && bottomSheetBehavior == null) {
+        if (view != null && mBottomSheetBehavior == null) {
             View bottomSheetView = view.findViewById(R.id.react_view_container);
-            bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetView);
-
-            bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheetView);
+            mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
                 @Override
                 public void onStateChanged(@NonNull View view, int state) {
                     if (state == BottomSheetBehavior.STATE_HIDDEN) {
@@ -46,7 +44,6 @@ public class PersistentBottomSheetFragment extends MiniAppNavigationFragment {
 
                 @Override
                 public void onSlide(@NonNull View view, float v) {
-
                 }
             });
         } else {

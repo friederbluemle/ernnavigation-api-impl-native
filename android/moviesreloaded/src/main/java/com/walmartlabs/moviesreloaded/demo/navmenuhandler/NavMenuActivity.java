@@ -13,7 +13,7 @@ import com.walmartlabs.moviesreloaded.R;
 public class NavMenuActivity extends ElectrodeBaseActivity {
     @Override
     protected int mainLayout() {
-        return R.layout.activity_main;
+        return R.layout.activity_default;
     }
 
     @NonNull
@@ -46,7 +46,7 @@ public class NavMenuActivity extends ElectrodeBaseActivity {
 
     @Override
     protected LaunchConfig createDefaultLaunchConfig() {
-        LaunchConfig config =  super.createDefaultLaunchConfig();
+        LaunchConfig config = super.createDefaultLaunchConfig();
         config.setForceUpEnabled(true);
         return config;
     }
