@@ -22,7 +22,7 @@ jobs:
       - run: yarn --frozen-lockfile
       - uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '11'
           distribution: 'temurin'
       - uses: android-actions/setup-android@v3
       - working-directory: android/
