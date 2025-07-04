@@ -11,7 +11,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: echo "y" | /usr/local/lib/android/sdk/tools/bin/sdkmanager "ndk;21.0.6113669"
       - run: npm i -g electrode-native
       - uses: actions/checkout@v4
         with:
@@ -21,6 +20,11 @@ jobs:
         run: node setup-dev.js
       - run: ern platform use 1000.0.0
       - run: yarn --frozen-lockfile
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - uses: android-actions/setup-android@v3
       - working-directory: android/
         run: ./gradlew createAndPublishErnDevContainer
       - working-directory: android/
